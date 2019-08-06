@@ -1,0 +1,18 @@
+*{ margin : 0; padding : 0;}
+ul,li{ list-style: none;}
+img{ display: block;}
+html,body{ height:100%;}
+.clearfix:after{ content:""; display: block; clear:both;}
+
+html {
+    box-sizing: border-box;
+    background: #eee;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+ input,button,select,textarea{outline:none}
+ textarea{resize:none;outline:none;-webkit-appearance: none;}
+
+ * { touch-action: pan-y; } 
