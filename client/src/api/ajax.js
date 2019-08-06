@@ -9,8 +9,8 @@ import config from '../config';
  * @param {*} data 请求参数，默认为空对象
  * @param {*} type 请求方法，默认为GET
  */
-console.log('ajax:', config)
-axios.defaults.baseURL = config.url
+
+// axios.defaults.baseURL = config.url
 
 export default function ajax (url = '', data = {}, type = 'GET') {
   // 返回值 Promise对象 （异步返回的数据是response.data，而不是response）
