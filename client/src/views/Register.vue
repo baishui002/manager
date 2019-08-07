@@ -12,32 +12,41 @@
                 class="reg-form"
             >
                 <el-form-item label="用户名" prop="name">
-                    <el-input type="password" v-model="regUser.name" auto-complete="off"></el-input>
+                    <el-input v-model="regUser.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
-                    <el-input type="password" v-model="regUser.email" auto-complete="off"></el-input>
+                    <el-input v-model="regUser.email" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input v-model.number="regUser.password"></el-input>
+                    <el-input type="password" v-model="regUser.password"></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码" prop="password2">
-                    <el-input v-model.number="regUser.password2"></el-input>
+                    <el-input type="password" v-model="regUser.password2"></el-input>
+                </el-form-item>
+                <el-form-item label="选择身份">
+                    <el-select v-model="regUser.identity" placeholder="请选择">
+                        <el-option label="管理员" value="manager"></el-option>
+                        <el-option label="员工" value="emplyee"></el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitReg('regForm')">提交</el-button>
+                    <el-button type="primary" class="btn" @click="submitReg('regForm')">注册</el-button>
                 </el-form-item>
             </el-form>
         </div>
- 
+    </div>
+</template>
+
     </div>
 </template>
 
 <script>
+import { reqRegister } from "../api";
 export default {
     name: "Register",
     data() {
         let validatePass2 = (rule, value, callback) => {
-            if (value !== this.registerUser.password) {
+            if (value !== this.regUser.password) {
                 callback(new Error("两次输入密码不一致!"));
             } else {
                 callback();
@@ -103,22 +112,28 @@ export default {
             }
         };
     },
+    created() {},
     methods: {
         submitReg(formName) {
-            console.log(1, formName);
-            this.$refs[formName].validate(valid => {
+            this.$refs[formName].validate(async valid => {
                 if (valid) {
-                    alert("submit!");
+                    try {
+                        const result = await reqRegister(this.regUser);
+                        // console.log('result:', result)
+                        if (result.code === 0) {
+                            this.$router.push({ name: "login" });
+                        } else {
+                            this.$message.error(result.msg);
+                        }
+                    } catch (error) {
+                        this.$message.error(result.msg);
+                    }
                 } else {
-                    console.log("error submit!!");
                     return false;
                 }
             });
         }
     },
-    computed: {},
-    created() {},
-    mounted() {},
     components: {}
 };
 </script>
@@ -147,6 +162,10 @@ export default {
 
         background: #fff;
         border-radius: 10px;
+
+        .btn {
+            width: 100%;
+        }
     }
 }
 </style>

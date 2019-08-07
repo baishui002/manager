@@ -5,9 +5,9 @@ import ajax from './ajax';
 
 /* ================== 用户模块 =================== */
 // 获取用户信息
-export const reqRegister = (name, email, password, identity) => ajax('api/user/register', { name, email, password, identity })
-export const reqRegister = (email, password) => ajax('api/user/login', { email, password })
-export const reqRegister = () => ajax('api/user/logout')
+export const reqRegister = ({ name, email, password, password2, identity }) => ajax('/user/register', { name, email, password, password2, identity }, 'POST')
+export const reqLogin = ({email, password}) => ajax('/user/login', { email, password }, 'POST')
+export const reqLogout = () => ajax('/user/logout')
 
 
 

@@ -1,26 +1,47 @@
 const express = require('express')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
 const User = require('../../models/user')
 const router = express.Router()
+
+const key = 'jack'
+
+// test 
+router.get('/test', (req, res) => {
+    console.log(123)
+    res.json({msg: 'ok'})
+})
 
 
 // register
 router.post('/register', async (req, res, next) => {
-    console.log('body:', req.body)
     try {
         const user = await User.findOne({ email: req.body.email })
-        console.log('user:', user)
         if (user) return res.json({code: 1, msg: 'email has already exitst'})
-        const newUser = await new User({
+
+        const newUser =  new User({
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             identity: req.body.identity
-        }).save()
+        })
 
-        if (newUser) res.json({code: 0, msg: 'success', user: newUser})
-        
+        // 加密
+        const saltRounds = 10
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, async (err, hash) => {
+                if (err) {
+                    next(err)
+                }
+                newUser.password = hash
+                const user = await newUser.save()
+                if (user) res.json({code: 0, msg: 'success', user: newUser})
+            })
+        })
+   
     } catch (error) {
-        next()
+        next(error)
     }
 })
 
@@ -28,31 +49,43 @@ router.post('/register', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
     const email = req.body.email
     const password = req.body.password
-    // console.log(1, email, password)
+    
     try {
         const user = await User.findOne({ email })
-        // console.log('result:', result)
         if (!user) {
-            res.json({
+            return res.json({
                 code: 1,
                 msg: 'The user not exitst!'
             })
-            return
+            
         } else {
-            if (user.password === password) {
-                res.json({
-                    code: 0,
-                    msg: 'success'
-                })
-            } else {
-                res.json({
-                    code: 1,
-                    msg: 'password is wrong '
-                })
-            }
+            bcrypt.compare(password, user.password).then(isMatch => {
+                if (isMatch) {
+                    const playload = {
+                        id: user.id,
+                        name: user.name,
+                        avatar: user.avatar,
+                        identity: user.identity
+                    }
+                    const token = jwt.sign(playload, key, {expiresIn: 60*60 })
+                    console.log('token:', token)
+                    res.json({
+                        code: 0,
+                        msg: 'success',
+                        token: 'auth ' + token
+                    })
+                    
+                } else {
+                    res.json({
+                        code: 1,
+                        msg: 'password is wrong '
+                    })
+                }
+            })
+            
         }
     } catch (error) {
-        next()
+        next(error)
     }
 })
 
