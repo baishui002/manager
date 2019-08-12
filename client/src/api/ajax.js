@@ -2,33 +2,46 @@
 ajax 请求函数模块
 */
 import axios from 'axios'
-
+import { Loading, Message } from 'element-ui'
 /**
  * 向外部暴漏一个函数 ajax
  * @param {*} url 请求路径，默认为空
  * @param {*} data 请求参数，默认为空对象
  * @param {*} type 请求方法，默认为GET
  */
+let loading
+ function startLoading() {
+     loading = Loading.service({
+         text: '加载中...',
+         lock: true,
+         background: 'rgba(0,0,0,0.7)'
+     })
+ }
+
+function endLoading() {
+    loading.close()
+}
 
 axios.defaults.baseURL = '/api'
 
-// 添加请求拦截器
-// axios.interceptors.request.use(function (config) {
-//     // 在发送请求之前做些什么
-//     const { data } = config
-//     return config
+//添加请求拦截器
+axios.interceptors.request.use(function (config) {
+    startLoading()
+    const { data } = config
+    return config
 
-//   }, function (error) {
-//     // 对请求错误做些什么
-//     return Promise.reject(error);
-//   });
+  }, function (error) {
+  
+    return Promise.reject(error);
+  });
 
 // 添加响应拦截器
 axios.interceptors.response.use(response => {
+    endLoading()
     // 对响应数据做点什么
     return response;
 }, error => {
-    // 对响应错误做点什么
+    endLoading()
     return Promise.reject(error);
 });
 

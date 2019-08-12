@@ -53,6 +53,7 @@ export default {
             }
         };
         return {
+            loading: "",
             regUser: {
                 name: "",
                 email: "",
@@ -118,8 +119,10 @@ export default {
             this.$refs[formName].validate(async valid => {
                 if (valid) {
                     try {
+                        this.openFullScreen();
                         const result = await reqRegister(this.regUser);
                         // console.log('result:', result)
+                        this.loading.close();
                         if (result.code === 0) {
                             this.$router.push({ name: "login" });
                         } else {
@@ -131,6 +134,15 @@ export default {
                 } else {
                     return false;
                 }
+            });
+        },
+
+        openFullScreen() {
+            this.loading = this.$loading({
+                lock: true,
+                text: "Loading",
+                spinner: "el-icon-loading",
+                background: "rgba(0, 0, 0, 0.7)"
             });
         }
     },

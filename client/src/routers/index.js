@@ -7,9 +7,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/home',
-      name: 'home',
-      component: () => import('../views/Home.vue')
+      path: '/',
+      name: 'index',
+      component: () => import('../views/Index.vue'),
+      children: [
+          {
+           path: '/home', name: 'home', component: () => import('../views/Home.vue')   
+          }
+      ]
     },
     {
       path: '/login',
@@ -21,6 +26,9 @@ export default new Router({
       name: 'register',
       component: () => import('../views/Register.vue')
     },
-
+    {
+        path: '*',
+        redirect: '/'
+    }
   ]
 })
