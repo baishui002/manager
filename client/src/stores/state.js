@@ -1,3 +1,4 @@
 export default {
-    userInfo: {}
+    isAuthenticated: false,     // 认证状态
+    user: {}        // 用户信息
 }

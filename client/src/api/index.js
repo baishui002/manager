@@ -7,7 +7,7 @@ import ajax from './ajax';
 // 获取用户信息
 export const reqRegister = ({ name, email, password, password2, identity }) => ajax('/user/register', { name, email, password, password2, identity }, 'POST')
 export const reqLogin = ({email, password}) => ajax('/user/login', { email, password }, 'POST')
-export const reqLogout = () => ajax('/user/logout')
+
 
 
 
