@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <header id="header">
     <el-row type="flex" justify="space-between">
       <el-col :span="6" class="logo">
         <img src="../assets/images/logo.png" alt />
@@ -25,7 +25,7 @@
         </div>
       </el-col>
     </el-row>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -67,7 +67,8 @@ export default {
 @import "@/assets/css/layout.scss";
 #header {
   padding: 5px;
-  @include WH(100%, 60px);
+  @include WH(100%, 70px);
+  line-height: 60px;
   min-width: 600px;
   border-bottom: 1px solid #1f2d3d;
   background: #324057;

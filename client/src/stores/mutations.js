@@ -1,7 +1,5 @@
 
 
-
-
 import { SET_AUTHENTICATED, SET_USER } from './mutations-types'
 
 export default {

@@ -14,5 +14,7 @@ html {
   
  input,button,select,textarea{outline:none}
  textarea{resize:none;outline:none;-webkit-appearance: none;}
-
+ a {
+    text-decoration: none;
+  }
  * { touch-action: pan-y; } 

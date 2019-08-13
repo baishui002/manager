@@ -1,14 +1,16 @@
 <template>
     <div id="index">
         <Header />
-        <LeftNav />
-        <router-view></router-view>
+        <LeftMenu />
+        <div class="rightCon">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
-import LeftNav from "@/components/LeftNav";
+import LeftMenu from "@/components/LeftMenu";
 
 export default {
     name: "Index",
@@ -22,11 +24,22 @@ export default {
     methods: {},
     components: {
         Header,
-        LeftNav
+        LeftMenu
     }
 };
 </script>
 <style lang='scss' scoped>
+@import "@/assets/css/layout.scss";
+
 #index {
+    @include WH(100%, 100%);
+    overflow: hidden;
+
+    .rightCon {
+            @include WH(100%, 100%);
+        position: relative;
+        left: 200px;
+        top: 0;
+    }
 }
 </style>

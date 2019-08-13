@@ -1,6 +1,9 @@
 <template>
     <div id="home">
-        home
+        <div class="con">
+            <h1>米修在线</h1>
+            <p>专注于线上教育, 用心做课程, 用心做服务!</p>
+        </div>
     </div>
 </template>
 
@@ -15,39 +18,20 @@ export default {
 @import "@/assets/css/layout.scss";
 #home {
     @include WH(100%, 100%);
-    .el-header,
-    .el-footer {
-        background-color: #b3c0d1;
-        color: #333;
+    min-height: 400px;
+    background: url("../assets/images/showcase.png") center/100% 100% no-repeat;
+    .con {
+        padding-top: 100px;
+        @include WH(100%, 100%);
         text-align: center;
-        line-height: 60px;
-    }
-
-    .el-aside {
-        background-color: #d3dce6;
-        color: #333;
-        text-align: center;
-        line-height: 200px;
-    }
-
-    .el-main {
-        background-color: #e9eef3;
-        color: #333;
-        text-align: center;
-        line-height: 160px;
-    }
-
-    body > .el-container {
-        margin-bottom: 40px;
-    }
-
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-        line-height: 260px;
-    }
-
-    .el-container:nth-child(7) .el-aside {
-        line-height: 320px;
+        background-color: rgba(0, 0, 0, .5);
+        h1 {
+            @include font-weight(30px, #fff);
+        }
+        p {
+            padding-top: 20px;
+            @include font-size(26px, #fff);
+        }
     }
 }
 </style>
