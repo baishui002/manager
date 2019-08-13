@@ -13,7 +13,16 @@ const router = new Router({
             children: [
                 {
                     path: '/home', name: 'home', component: () => import('../views/Home.vue')
-                }
+                },
+                {
+                    path: '/fundFlow', name: 'fundFlow', component: () => import('../views/FundFlow.vue')
+                },
+                {
+                    path: '/profile', name: 'profile', component: () => import('../views/Profile.vue')
+                },
+                {
+                    path: '/', redirect: {name: 'home'}
+                },
             ]
         },
         {
@@ -27,8 +36,13 @@ const router = new Router({
             component: () => import('../views/Register.vue')
         },
         {
+            path: '/notFound',
+            name: '404',
+            component: () => import('../views/404.vue')
+        },
+        {
             path: '*',
-            redirect: '/login'
+            redirect: '/notFound'
         }
     ]
 })

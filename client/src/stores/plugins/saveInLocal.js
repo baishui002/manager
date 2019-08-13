@@ -1,7 +1,7 @@
 
 export default store => {
-    if (localStorage.state) store.replaceState(JSON.parse(localStorage.state))
+    if (sessionStorage.state) store.replaceState(JSON.parse(sessionStorage.state))
     store.subscribe((mutation, state) => {
-        localStorage.state = JSON.stringify(state)
+        sessionStorage.state = JSON.stringify(state)
     })
 }

@@ -36,7 +36,9 @@ export default {
     overflow: hidden;
 
     .rightCon {
-            @include WH(100%, 100%);
+            // @include WH(100%, 100%);
+        width: calc(100% - 200px);
+        height: calc(100% - 70px);
         position: relative;
         left: 200px;
         top: 0;

@@ -51,7 +51,9 @@ export default {
         this.toLogout();
       }
     },
-    toInfo() {},
+    toInfo() {
+        this.$router.push({name: 'profile'})
+    },
     
     // 退出
     toLogout() {

@@ -20,7 +20,7 @@
                     </template>
 
                     <el-menu-item-group v-for="(citem, cindex) in item.children" :key="cindex">
-                        <router-link :to="item.path">
+                        <router-link :to="citem.path">
                             <el-menu-item :index="citem.path">{{citem.name}}</el-menu-item>
                         </router-link>
                     </el-menu-item-group>
@@ -49,13 +49,13 @@ export default {
                     icon: "el-icon-printer",
                     name: "资金管理",
                     path: "fund",
-                    children: [{ path: "fundlist", name: "资金流水" }]
+                    children: [{ path: "fundFlow", name: "资金流水" }]
                 },
                 {
                     icon: "el-icon-tickets",
                     name: "信息管理",
-                    path: "info",
-                    children: [{ path: "infoshow", name: "个人信息" }]
+                    path: "userinfo",
+                    children: [{ path: "profile", name: "个人信息" }]
                 }
             ]
         };
