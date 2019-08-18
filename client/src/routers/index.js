@@ -20,9 +20,9 @@ const router = new Router({
                 {
                     path: '/profile', name: 'profile', component: () => import('../views/Profile.vue')
                 },
-                {
-                    path: '/', redirect: {name: 'home'}
-                },
+                // {
+                //     path: '/', redirect: {name: 'home'}
+                // },
             ]
         },
         {

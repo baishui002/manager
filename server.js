@@ -1,31 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const userRouter = require('./routers/api/users')
+const fundRouter = require('./routers/api/funds')
 
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const jwt = require('jsonwebtoken')
 
-// const res = {
-//     name: 'admin',
-//     age: 123
-// }
-
-// const token = jwt.sign(res, 'jack')
-// console.log('token:', 'jack ' + token)
-
-// jwt.verify(token, 'jack', (err, data) => {
-//     if (err) {
-//         console.log('err:', err)
-//     }
-//     console.log('data:', data)
-// })
 
 app.use('/api/user', userRouter);
-// app.use('/api/stu', stuRouter);
+app.use('/api/fund', fundRouter);
 
 // 配置一个处理 404 的中间件
 app.use((req, res) => {
