@@ -3,6 +3,8 @@ ajax 请求函数模块
 */
 import axios from 'axios'
 import { Loading, Message } from 'element-ui'
+import router from '../routers'
+
 /**
  * 向外部暴漏一个函数 ajax
  * @param {*} url 请求路径，默认为空
@@ -25,12 +27,14 @@ function endLoading() {
 axios.defaults.baseURL = '/api'
 
 //添加请求拦截器
-axios.interceptors.request.use(function (config) {
+axios.interceptors.request.use( config => {
     startLoading()
-    const { data } = config
+    if (localStorage.eleToken) {
+        config.headers.Authorization = localStorage.eleToken
+    }
     return config
 
-  }, function (error) {
+  }, error => {
   
     return Promise.reject(error);
   });
@@ -42,16 +46,23 @@ axios.interceptors.response.use(response => {
     return response;
 }, error => {
     endLoading()
+    console.log('err:', error)
+    Message.error(error.response.data)
+    const { status } = error.response
+    if (status == 401) {
+        Message.error('token失效， 请重新登录')
+        localStorage.removeItem('eleToken')
+        router.push({name: '/login'})
+    }
     return Promise.reject(error);
 });
 
 export default function ajax(url = '', data = {}, type = 'GET') {
     // 返回值 Promise对象 （异步返回的数据是response.data，而不是response）
     return new Promise((resolve, reject) => {
-        // （利用axios）异步执行ajax请求
+
         let promise // 这个内部的promise用来保存axios的返回值(promise对象)
         if (type === 'GET') {
-            // 准备 url query 参数数据
             let dataStr = '' // 数据拼接字符串，将data连接到url
             data.s = Math.random();
             Object.keys(data).forEach(key => {
@@ -62,11 +73,9 @@ export default function ajax(url = '', data = {}, type = 'GET') {
                 url = url + '?' + dataStr
             }
             //   url = url + '&s=' + Math.random();
-            // 发送 get 请求
-            promise = axios.get(url)
+            promise = axios.get(url)    // get请求
         } else {
-            // 发送 post 请求
-            promise = axios.post(url, data)
+            promise = axios.post(url, data)     // post请求
         }
         promise.then(response => {
             // 成功回调resolve()

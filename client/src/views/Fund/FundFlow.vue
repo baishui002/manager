@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import Dialog from "../components/Dialog";
-import { reqAllFund, reqDelFund } from "../api";
+import Dialog from "@/components/Dialog";
+import { reqAllFund, reqDelFund } from "@/api";
 export default {
   name: "Money",
   data() {

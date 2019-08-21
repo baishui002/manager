@@ -19,7 +19,7 @@ export default {
 #home {
     @include WH(100%, 100%);
     min-height: 400px;
-    background: url("../assets/images/showcase.png") center/100% 100% no-repeat;
+    background: url("../../assets/images/showcase.png") center/100% 100% no-repeat;
     .con {
         padding-top: 100px;
         @include WH(100%, 100%);

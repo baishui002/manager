@@ -12,13 +12,13 @@ const router = new Router({
             component: () => import('../views/Index.vue'),
             children: [
                 {
-                    path: '/home', name: 'home', component: () => import('../views/Home.vue')
+                    path: '/home', name: 'home', component: () => import('../views/Fund/Home.vue')
                 },
                 {
-                    path: '/fundFlow', name: 'fundFlow', component: () => import('../views/FundFlow.vue')
+                    path: '/fundFlow', name: 'fundFlow', component: () => import('../views/Fund/FundFlow.vue')
                 },
                 {
-                    path: '/profile', name: 'profile', component: () => import('../views/Profile.vue')
+                    path: '/profile', name: 'profile', component: () => import('../views/Fund/Profile.vue')
                 },
                 // {
                 //     path: '/', redirect: {name: 'home'}
@@ -28,22 +28,36 @@ const router = new Router({
         {
             path: '/login',
             name: 'login',
-            component: () => import('../views/Login.vue')
+            component: () => import('../views/User/Login.vue')
         },
         {
             path: '/register',
             name: 'register',
-            component: () => import('../views/Register.vue')
+            component: () => import('../views/User/Register.vue')
         },
         {
             path: '/notFound',
             name: '404',
             component: () => import('../views/404.vue')
         },
+
+
+        /*==================  test  ================= */
+        {
+            path: '/echart',
+            name: 'echart',
+            component: () => import('../views/Test/_echart.vue')
+        },
+        {
+            path: '/editor',
+            name: 'editor',
+            component: () => import('../views/Test/quillEditor.vue')
+        },
+
         {
             path: '*',
             redirect: '/notFound'
-        }
+        },
     ]
 })
 

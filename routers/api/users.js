@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../../models/user')
 const router = express.Router()
 
-const key = 'jack'
+const config = require('../../config/config')
 
 // test 
 router.get('/test', (req, res) => {
@@ -52,7 +52,8 @@ router.post('/login', async (req, res, next) => {
     
     try {
         const user = await User.findOne({ email })
-        if (!user) {
+        // 判断用户是否已注册
+        if (!user) { 
             return res.json({
                 code: 1,
                 msg: 'The user not exitst!'
@@ -60,6 +61,7 @@ router.post('/login', async (req, res, next) => {
             
         } else {
             bcrypt.compare(password, user.password).then(isMatch => {
+                // 密码验证
                 if (isMatch) {
                     const playload = {
                         id: user.id,
@@ -67,12 +69,12 @@ router.post('/login', async (req, res, next) => {
                         avatar: user.avatar,
                         identity: user.identity
                     }
-                    const token = jwt.sign(playload, key, {expiresIn: 60*60 })
-                    console.log('token:', token)
+                    const token = jwt.sign(playload, config.secret, {expiresIn: 60*60 })
+                    // console.log('token:', token)
                     res.json({
                         code: 0,
                         msg: 'success',
-                        token: 'auth ' + token
+                        token: 'Bearer ' + token
                     })
                     
                 } else {

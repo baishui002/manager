@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import { reqLogin } from "../api";
 import jwt_decode from "jwt-decode";
 import { mapActions } from "vuex";
-import { SET_AUTHENTICATED, SET_USER } from '../stores/mutations-types'
+import { reqLogin } from "@/api";
+import { SET_AUTHENTICATED, SET_USER } from '@/stores/mutations-types'
 
 export default {
   name: "Login",
@@ -76,7 +76,7 @@ export default {
               window.localStorage.setItem("eleToken", result.token);
               // 解析token
               const user = jwt_decode(result.token);
-           
+            
               // token存储到vuex
               this.setAuthenticated(!this.isEmpty(user));
              
@@ -117,7 +117,7 @@ export default {
 #login {
   position: relative;
   @include WH(100%, 100%);
-  background: url("../assets/images/bg.jpg") center/100% 100% no-repeat;
+  background: url("../../assets/images/bg.jpg") center/100% 100% no-repeat;
 }
 
 .con {

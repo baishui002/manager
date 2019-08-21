@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { reqRegister } from "../api";
+import { reqRegister } from "@/api";
 export default {
     name: "Register",
     data() {
@@ -154,7 +154,7 @@ export default {
 #register {
     position: relative;
     @include WH(100%, 100%);
-    background: url("../assets/images/bg.jpg") center/100% 100% no-repeat;
+    background: url("../../assets/images/bg.jpg") center/100% 100% no-repeat;
 }
 
 .con {
